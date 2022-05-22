@@ -52,7 +52,8 @@ async function run(){
         // Services API        
         app.get('/service', async(req,res)=>{
             const query = {};
-            const cursor = serviceCollection.find(query);
+            const cursor = serviceCollection.find(query).limit(6)
+            // console.log(cursor);
             const services = await cursor.toArray();
             res.send(services);
         });
@@ -70,6 +71,40 @@ async function run(){
             const result = await serviceCollection.insertOne(newService);
             res.send(result);
         });
+
+        //update user
+        // app.put('/service/:id', async(req,res)=>{
+        //     const id = req.params.id;
+        //     const updatePrice = req.body;
+        //     const filter = {_id: ObjectId(id)};
+        //     const options = {upsert: true}
+        //     const updatedDoc = {
+        //         $set: {
+        //             price : updatePrice.price
+        //             // ...updatePrice
+                   
+        //         }
+        //      };
+        //     const result = await serviceCollection.updateOne(filter, updatedDoc, options);
+        //     res.send(result);
+        // })
+         // put item
+        app.put('/service/:id', async (req, res) => {
+            const id = req.params.id;
+            console.log(id);
+            const quantityUpdate = req.body;
+            console.log(quantityUpdate);
+            const query = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateDoc = {
+                $set: {
+                    quantity: quantityUpdate.quantity,
+                }
+            };
+            const result = await serviceCollection.updateOne(query, updateDoc, options);
+            res.send(result);
+        });
+
         //Delete
         app.delete('/service/:id', async(req, res)=>{
             const id = req.params.id;
