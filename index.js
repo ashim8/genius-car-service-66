@@ -52,7 +52,8 @@ async function run(){
         // Services API        
         app.get('/service', async(req,res)=>{
             const query = {};
-            const cursor = serviceCollection.find(query).limit(6)
+            // const cursor = serviceCollection.find(query).limit(6)
+            const cursor = serviceCollection.find(query)
             // console.log(cursor);
             const services = await cursor.toArray();
             res.send(services);
