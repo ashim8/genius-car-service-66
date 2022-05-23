@@ -104,6 +104,22 @@ async function run(){
             const result = await serviceCollection.updateOne(query, updateDoc, options);
             res.send(result);
         });
+        //restock price
+        // app.put('/service/:id', async (req, res) => {
+        //     const id = req.params.id;
+        //     console.log(id);
+        //     const quantityUpdate = req.body;
+        //     console.log(quantityUpdate);
+        //     const query = { _id: ObjectId(id) };
+        //     const options = { upsert: true };
+        //     const updateDoc = {
+        //         $set: {
+        //             price : quantityUpdate.price,
+        //         }
+        //     };
+        //     const result = await serviceCollection.updateOne(query, updateDoc, options);
+        //     res.send(result);
+        // });
 
         //Delete
         app.delete('/service/:id', async(req, res)=>{
